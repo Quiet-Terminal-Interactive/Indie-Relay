@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review claim | Indie Relay</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<header id="nav" role="banner"></header>
+
+<div class="page-layout">
+  <nav class="sidebar" aria-label="Account navigation">
+    <a href="/dashboard.html" class="sidebar__link sidebar__link--active">Dashboard</a>
+    <a href="/marketplace.html" class="sidebar__link">Marketplace</a>
+    <a href="/new-request.html" class="sidebar__link">Post a request</a>
+    <a href="/profile.html" class="sidebar__link">Profile &amp; credits</a>
+  </nav>
+
+  <main class="main-content container--narrow" style="padding:0">
+    <div class="page-header">
+      <h1>Review promotion claim</h1>
+      <p>A member has promoted your game and submitted proof. Check the link meets the quality bar, then approve to release their credits, or escalate if something's off.</p>
+    </div>
+
+    <div id="claim-detail"></div>
+
+    <div class="card card--surface" style="margin-top:var(--space-6)">
+      <h3 style="margin-bottom:var(--space-3)">What each action does</h3>
+      <dl style="display:grid;gap:var(--space-3)">
+        <div>
+          <dt style="font-weight:700;font-size:var(--text-sm)">Approve</dt>
+          <dd style="font-size:var(--text-sm);color:var(--ir-text-muted)">Credits transfer to the promoter immediately. The promo is marked complete.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:700;font-size:var(--text-sm)">Send to committee</dt>
+          <dd style="font-size:var(--text-sm);color:var(--ir-text-muted)">Not sure? Let the committee decide. Treated as a routine review, lower priority than a dispute.</dd>
+        </div>
+        <div>
+          <dt style="font-weight:700;font-size:var(--text-sm)">Dispute</dt>
+          <dd style="font-size:var(--text-sm);color:var(--ir-text-muted)">You believe the promo didn't happen or didn't meet the quality bar. Goes to the committee as a priority dispute. Provide a reason.</dd>
+        </div>
+      </dl>
+    </div>
+  </main>
+</div>
+
+<script type="module" src="/js/sign-off.js"></script>
+</body>
+</html>

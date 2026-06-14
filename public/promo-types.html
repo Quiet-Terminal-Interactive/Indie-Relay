@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promo Types | Indie Relay</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<header id="nav" role="banner"></header>
+
+<main class="container" style="padding-top:var(--space-12);padding-bottom:var(--space-16)">
+  <div class="page-header">
+    <h1>Promo types</h1>
+    <p>A fixed catalogue of promotion types with committee-set minimum credit values. Requesters may offer more than the minimum.</p>
+  </div>
+
+  <div class="alert alert--warning" style="margin-bottom:var(--space-8)">
+    <strong>Disclosure required:</strong> All promotional content must begin with <strong>"Ad: Indie Relay"</strong> on every platform used (ASA/FTC requirement). For livestreams, this must also be spoken aloud and shown on screen, not just stated once at the start.
+  </div>
+
+  <table class="promo-table" style="margin-bottom:var(--space-10)">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Min. credits</th>
+        <th>Quality bar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Social shoutout</strong><br><span style="font-size:var(--text-xs);color:var(--ir-text-muted)">Discord, X, Bluesky, Instagram, etc.</span></td>
+        <td><span class="credit-chip credit-chip--value">1 cr</span></td>
+        <td>Public post or message naming the game with a link. Must stay live for at least 2 weeks.</td>
+      </tr>
+      <tr>
+        <td><strong>Community cross-post</strong><br><span style="font-size:var(--text-xs);color:var(--ir-text-muted)">Reciprocal shoutout</span></td>
+        <td><span class="credit-chip credit-chip--value">1 cr</span></td>
+        <td>Framed as the reciprocal "shout back", with the same requirements as the shoutout above.</td>
+      </tr>
+      <tr>
+        <td><strong>Short-form video</strong><br><span style="font-size:var(--text-xs);color:var(--ir-text-muted)">TikTok, YouTube Shorts, Instagram Reels</span></td>
+        <td><span class="credit-chip credit-chip--value">2 cr</span></td>
+        <td>At least 15 seconds of footage or discussion of the game. Video must be public (not unlisted). Game name or link in caption or description.</td>
+      </tr>
+      <tr>
+        <td><strong>Livestream</strong><br><span style="font-size:var(--text-xs);color:var(--ir-text-muted)">Twitch, YouTube Live</span></td>
+        <td><span class="credit-chip credit-chip--value">3 cr</span></td>
+        <td>At least 30 minutes playing or discussing the game. VOD must remain available for at least 2 weeks as proof. <strong>Disclosure must be spoken aloud and shown on-screen throughout the stream, not only at the start.</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Long-form video / dedicated coverage</strong><br><span style="font-size:var(--text-xs);color:var(--ir-text-muted)">YouTube, etc.</span></td>
+        <td><span class="credit-chip credit-chip--value">5 cr</span></td>
+        <td>A dedicated segment of at least 3–5 minutes (or the full video if shorter). Must be public.</td>
+      </tr>
+      <tr>
+        <td><strong>Written / press feature</strong><br><span style="font-size:var(--text-xs);color:var(--ir-text-muted)">Blog, outlet, newsletter</span></td>
+        <td><span class="credit-chip credit-chip--value">5 cr</span></td>
+        <td>At least ~150 words specifically about the game, with a link. Must be publicly accessible.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card card--surface" style="margin-bottom:var(--space-8)">
+    <h3 style="margin-bottom:var(--space-3)">Credit rates are flat</h3>
+    <p style="color:var(--ir-text-muted)">A stream earns 3 credits whether the streamer has 50 viewers or 50,000. This avoids disputes over reach verification and follower-count claims. What matters is that the promo happened and met the quality bar, not how many people saw it.</p>
+  </div>
+
+  <div class="card card--surface" style="margin-bottom:var(--space-8)">
+    <h3 style="margin-bottom:var(--space-3)">Suggesting a new type</h3>
+    <p style="color:var(--ir-text-muted)">The catalogue is community-maintained. If you think a promo type is missing, submit a suggestion via the committee queue once you're a member. The committee reviews all suggestions alongside dispute queue items.</p>
+  </div>
+
+  <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+    <a href="/apply.html" class="btn btn--primary">Apply for membership</a>
+    <a href="/marketplace.html" class="btn btn--secondary">Browse open requests</a>
+  </div>
+</main>
+
+<script type="module">
+  import { initTheme } from '/js/theme.js';
+  import { renderNav } from '/js/nav.js';
+  initTheme();
+  renderNav();
+</script>
+</body>
+</html>

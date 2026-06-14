@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Committee | Indie Relay</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<header id="nav" role="banner"></header>
+
+<div class="page-layout">
+  <nav class="sidebar" aria-label="Account navigation">
+    <a href="/dashboard.html" class="sidebar__link">Dashboard</a>
+    <a href="/marketplace.html" class="sidebar__link">Marketplace</a>
+    <a href="/new-request.html" class="sidebar__link">Post a request</a>
+    <a href="/profile.html" class="sidebar__link">Profile &amp; credits</a>
+    <a href="/committee.html" class="sidebar__link sidebar__link--active">Committee queue</a>
+  </nav>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Committee queue</h1>
+      <p>Disputes are prioritised. Approve to release full credits, partial to release 50%, or reject with no payout.</p>
+    </div>
+
+    <div class="alert alert--warning" style="margin-bottom:var(--space-8)">
+      <strong>Reminder:</strong> If the committee fails to resolve a claim within the 2-month window, either party may cancel. The promoter is not paid and the content obligation is released.
+    </div>
+
+    <section style="margin-bottom:var(--space-10)">
+      <div class="queue-column__header" style="margin-bottom:var(--space-4)">
+        <span style="font-size:1.25rem" aria-hidden="true">👥</span>
+        <h2 class="queue-column__title">Pending applications</h2>
+      </div>
+      <p style="color:var(--ir-text-muted);margin-bottom:var(--space-5);font-size:var(--text-sm)">New members cannot access the marketplace until approved. Reject to permanently remove their application.</p>
+      <div id="pending-members-list"></div>
+    </section>
+
+    <div class="queue-columns">
+      <div>
+        <div class="queue-column__header">
+          <span class="status status--disputed" style="font-size:var(--text-base)"></span>
+          <h2 class="queue-column__title">Disputes</h2>
+        </div>
+        <div id="disputes-column"></div>
+      </div>
+      <div>
+        <div class="queue-column__header">
+          <span class="status status--committee" style="font-size:var(--text-base)"></span>
+          <h2 class="queue-column__title">Routine &amp; suggestions</h2>
+        </div>
+        <div id="routine-column"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script type="module" src="/js/committee.js"></script>
+</body>
+</html>

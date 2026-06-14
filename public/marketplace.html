@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marketplace | Indie Relay</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<header id="nav" role="banner"></header>
+
+<div class="page-layout">
+  <nav class="sidebar" aria-label="Account navigation">
+    <a href="/dashboard.html" class="sidebar__link">Dashboard</a>
+    <a href="/marketplace.html" class="sidebar__link sidebar__link--active">Marketplace</a>
+    <a href="/new-request.html" class="sidebar__link">Post a request</a>
+    <a href="/profile.html" class="sidebar__link">Profile &amp; credits</a>
+  </nav>
+
+  <main class="main-content">
+    <div class="page-header">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4)">
+        <div>
+          <h1>Open requests</h1>
+          <p>Browse promotions needed by other members. Claim one you can do and submit proof when done.</p>
+        </div>
+        <a href="/new-request.html" class="btn btn--primary">Post a request</a>
+      </div>
+    </div>
+
+    <div class="filter-bar" role="search" aria-label="Filter requests">
+      <select class="form-select" id="filter-type" aria-label="Promo type">
+        <option value="">All types</option>
+        <option value="social_shoutout">Social shoutout</option>
+        <option value="community_crosspost">Cross-post</option>
+        <option value="short_form_video">Short-form video</option>
+        <option value="livestream">Livestream</option>
+        <option value="long_form_video">Long-form video</option>
+        <option value="press_feature">Press feature</option>
+      </select>
+      <input class="form-input" type="number" id="filter-min" placeholder="Min credits" min="1" max="20" style="width:130px" aria-label="Minimum credits">
+      <input class="form-input" type="number" id="filter-max" placeholder="Max credits" min="1" max="20" style="width:130px" aria-label="Maximum credits">
+    </div>
+
+    <div class="card-grid" id="request-grid" role="list" aria-live="polite">
+      <div style="grid-column:1/-1;display:flex;justify-content:center;padding:var(--space-10)">
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script type="module" src="/js/marketplace.js"></script>
+</body>
+</html>

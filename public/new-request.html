@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post a request | Indie Relay</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<header id="nav" role="banner"></header>
+
+<div class="page-layout">
+  <nav class="sidebar" aria-label="Account navigation">
+    <a href="/dashboard.html" class="sidebar__link">Dashboard</a>
+    <a href="/marketplace.html" class="sidebar__link">Marketplace</a>
+    <a href="/new-request.html" class="sidebar__link sidebar__link--active">Post a request</a>
+    <a href="/profile.html" class="sidebar__link">Profile &amp; credits</a>
+  </nav>
+
+  <main class="main-content container--narrow" style="padding:0">
+    <div class="page-header">
+      <h1>Post a promo request</h1>
+      <p>Credits are deducted when you post. If no one claims your request, you can cancel it for a refund. One request every two weeks.</p>
+    </div>
+
+    <div class="alert alert--warning" style="margin-bottom:var(--space-6)">
+      All promoters must include <strong>"Ad: Indie Relay"</strong> disclosure at the start of their content. Include this requirement in your description if you want to remind them.
+    </div>
+
+    <form id="request-form" class="card" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="game-name">Game name</label>
+        <input class="form-input" type="text" id="game-name" required placeholder="Neon Drift">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="game-url">Game URL <span style="font-weight:400;color:var(--ir-text-muted)">(optional)</span></label>
+        <input class="form-input" type="url" id="game-url" placeholder="https://store.steampowered.com/app/…">
+        <span class="form-hint">Steam, itch.io, or your own site.</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="promo-type">Promo type</label>
+        <select class="form-select" id="promo-type" required>
+          <option value="">Select a type</option>
+          <option value="social_shoutout">Social shoutout (1 cr min)</option>
+          <option value="community_crosspost">Community cross-post (1 cr min)</option>
+          <option value="short_form_video">Short-form video (2 cr min)</option>
+          <option value="livestream">Livestream (3 cr min)</option>
+          <option value="long_form_video">Long-form video (5 cr min)</option>
+          <option value="press_feature">Written / press feature (5 cr min)</option>
+        </select>
+        <span class="form-hint"><a href="/promo-types.html">View quality bars →</a></span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="credits-offered">Credits offered</label>
+        <input class="form-input" type="number" id="credits-offered" required min="1" max="20" value="1" style="font-family:var(--font-mono)">
+        <span class="form-hint" id="min-hint">Select a promo type first.</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="description">Notes for the promoter <span style="font-weight:400;color:var(--ir-text-muted)">(optional)</span></label>
+        <textarea class="form-textarea" id="description" placeholder="Any context that helps: genre, target audience, what kind of coverage fits the game best…"></textarea>
+      </div>
+
+      <div id="form-error" class="form-error" style="margin-bottom:var(--space-4)"></div>
+
+      <div style="display:flex;gap:var(--space-3)">
+        <button type="submit" class="btn btn--primary" id="submit-btn">Post request</button>
+        <a href="/marketplace.html" class="btn btn--ghost">Cancel</a>
+      </div>
+    </form>
+  </main>
+</div>
+
+<script type="module" src="/js/new-request.js"></script>
+</body>
+</html>

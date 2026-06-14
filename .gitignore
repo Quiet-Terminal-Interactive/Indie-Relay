@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment
+.env
+
+# SQLite database files
+*.db
+*.db-shm
+*.db-wal
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp

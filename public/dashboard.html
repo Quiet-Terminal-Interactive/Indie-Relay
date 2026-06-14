@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Indie Relay</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<header id="nav" role="banner"></header>
+
+<div id="pending-screen" style="display:none;min-height:calc(100vh - 64px);align-items:center;justify-content:center;flex-direction:column;gap:var(--space-4);text-align:center;padding:var(--space-8)">
+  <div style="font-size:3rem" aria-hidden="true">⏳</div>
+  <h1 style="font-size:var(--text-2xl)">Your account is pending validation</h1>
+  <p style="color:var(--ir-text-muted);max-width:420px">The committee reviews all new applications. Please check back soon. You'll have full access once you're approved.</p>
+</div>
+
+<div id="dashboard-content">
+<div class="page-layout">
+  <nav class="sidebar" aria-label="Account navigation">
+    <a href="/dashboard.html" class="sidebar__link sidebar__link--active">Dashboard</a>
+    <a href="/marketplace.html" class="sidebar__link">Marketplace</a>
+    <a href="/new-request.html" class="sidebar__link">Post a request</a>
+    <a href="/profile.html" class="sidebar__link">Profile &amp; credits</a>
+  </nav>
+
+  <main class="main-content">
+    <div id="expiry-alert" class="alert alert--warning" style="display:none;margin-bottom:var(--space-6)" role="alert"></div>
+
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:var(--space-8);flex-wrap:wrap;gap:var(--space-4)">
+      <div class="balance-display">
+        <div class="balance-display__number" id="balance-number" aria-label="Credit balance">—</div>
+        <div class="balance-display__label">credits available</div>
+        <div class="balance-display__cap" id="balance-cap"></div>
+      </div>
+      <div style="display:flex;gap:var(--space-3)">
+        <a href="/marketplace.html" class="btn btn--secondary">Browse requests</a>
+        <a href="/new-request.html" class="btn btn--primary">Post a request</a>
+      </div>
+    </div>
+
+    <div class="stats-grid" style="margin-bottom:var(--space-8)">
+      <div class="stat-card">
+        <div class="stat-card__value" id="stat-pending">—</div>
+        <div class="stat-card__label">Awaiting your sign-off</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__value" id="stat-submitted">—</div>
+        <div class="stat-card__label">Promos you've submitted</div>
+      </div>
+    </div>
+
+    <section style="margin-bottom:var(--space-10)">
+      <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-5)">Needs your review</h2>
+      <div id="pending-signoffs"></div>
+    </section>
+
+    <section style="margin-bottom:var(--space-10)">
+      <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-5)">My submitted promos</h2>
+      <div id="my-claims"></div>
+    </section>
+
+    <section>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-5)">
+        <h2 style="font-size:var(--text-xl)">Recent transactions</h2>
+        <a href="/profile.html" class="btn btn--ghost btn--sm">Full history →</a>
+      </div>
+      <div id="recent-ledger" class="ledger-list card card--flat"></div>
+    </section>
+  </main>
+</div>
+</div>
+
+<script type="module" src="/js/dashboard.js"></script>
+<script type="module">
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const pending = document.querySelectorAll('#pending-signoffs .card').length;
+      const submitted = document.querySelectorAll('#my-claims .ledger-item').length;
+      const p = document.getElementById('stat-pending');
+      const s = document.getElementById('stat-submitted');
+      if (p) p.textContent = pending || '0';
+      if (s) s.textContent = submitted || '0';
+    }, 800);
+  });
+</script>
+</body>
+</html>

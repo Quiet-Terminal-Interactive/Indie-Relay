@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply | Indie Relay</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<header id="nav" role="banner"></header>
+
+<main class="container--narrow" style="padding-top:var(--space-12);padding-bottom:var(--space-16)">
+  <div class="page-header">
+    <h1>Apply for membership</h1>
+    <p>Applications are reviewed by the committee at their discretion. You'll receive 2 credits when approved, enough for a social shoutout or a first short-form request.</p>
+  </div>
+
+  <form id="apply-form" novalidate>
+    <div class="form-group">
+      <label class="form-label" for="name">Your name or handle</label>
+      <input class="form-input" type="text" id="name" required autocomplete="name" placeholder="Pixel Forge Studios">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="email">Email address</label>
+      <input class="form-input" type="email" id="email" required autocomplete="email" placeholder="you@example.com">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="password">Password</label>
+      <input class="form-input" type="password" id="password" required autocomplete="new-password" minlength="8">
+      <span class="form-hint">At least 8 characters.</span>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="member-type">I am a…</label>
+      <select class="form-select" id="member-type" required>
+        <option value="">Select your role</option>
+        <option value="dev">Developer / studio</option>
+        <option value="creator">Content creator (YouTube, TikTok)</option>
+        <option value="streamer">Streamer (Twitch, YouTube Live)</option>
+        <option value="press">Press / journalist</option>
+      </select>
+    </div>
+
+    <div class="form-group" id="verification-section" style="display:none">
+      <label class="form-label" for="verification-url">Verification link</label>
+      <input class="form-input" type="url" id="verification-url" placeholder="https://…" autocomplete="url">
+      <span class="form-hint" id="verification-hint"></span>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="invite-code">Invite code <span style="font-weight:400;color:var(--ir-text-muted)">(optional)</span></label>
+      <input class="form-input" type="text" id="invite-code" placeholder="ABCDEF" autocomplete="off" maxlength="12" style="text-transform:uppercase;font-family:var(--font-mono)">
+      <span class="form-hint">If a member gave you a code, enter it here. You'll both receive 3 bonus credits.</span>
+    </div>
+
+    <div class="form-group" style="flex-direction:row;align-items:flex-start;gap:var(--space-3)">
+      <input type="checkbox" id="privacy-agree" required style="margin-top:3px;flex-shrink:0;accent-color:var(--ir-primary);width:16px;height:16px;cursor:pointer">
+      <label for="privacy-agree" style="font-size:var(--text-sm);color:var(--ir-text-muted);cursor:pointer">
+        I have read and agree to the <a href="/privacy.html" target="_blank">privacy notice</a>, and accept that my account data will be retained in line with the 2-month inactivity policy.
+      </label>
+    </div>
+
+    <div id="form-error" class="form-error" style="margin-bottom:var(--space-4)"></div>
+
+    <button type="submit" class="btn btn--primary btn--lg" id="submit-btn" style="width:100%">
+      Apply for membership
+    </button>
+
+    <p style="text-align:center;margin-top:var(--space-4);font-size:var(--text-sm);color:var(--ir-text-muted)">
+      Already a member? <a href="/login.html">Log in</a>
+    </p>
+  </form>
+</main>
+
+<script type="module" src="/js/apply.js"></script>
+</body>
+</html>

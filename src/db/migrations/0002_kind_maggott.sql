@@ -1,0 +1,1 @@
+ALTER TABLE `committee_audit_log` ADD `target_request_id` integer REFERENCES promo_requests(id);

@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1781472456831,
+      "tag": "0000_dazzling_kylun",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1781474424776,
+      "tag": "0001_perfect_star_brand",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1781474623139,
+      "tag": "0002_kind_maggott",
+      "breakpoints": true
+    }
+  ]
+}

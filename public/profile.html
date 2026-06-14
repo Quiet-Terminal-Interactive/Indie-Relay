@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | Indie Relay</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<header id="nav" role="banner"></header>
+
+<div class="page-layout">
+  <nav class="sidebar" aria-label="Account navigation">
+    <a href="/dashboard.html" class="sidebar__link">Dashboard</a>
+    <a href="/marketplace.html" class="sidebar__link">Marketplace</a>
+    <a href="/new-request.html" class="sidebar__link">Post a request</a>
+    <a href="/profile.html" class="sidebar__link sidebar__link--active">Profile &amp; credits</a>
+  </nav>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Profile &amp; credit history</h1>
+    </div>
+
+    <div class="card" style="margin-bottom:var(--space-6)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--space-5)">
+        <div>
+          <div style="font-size:var(--text-xs);color:var(--ir-text-muted);margin-bottom:var(--space-1)">Name</div>
+          <div style="font-weight:700" id="member-name">—</div>
+        </div>
+        <div>
+          <div style="font-size:var(--text-xs);color:var(--ir-text-muted);margin-bottom:var(--space-1)">Member type</div>
+          <div id="member-type">—</div>
+        </div>
+        <div>
+          <div style="font-size:var(--text-xs);color:var(--ir-text-muted);margin-bottom:var(--space-1)">Email</div>
+          <div id="member-email">—</div>
+        </div>
+        <div>
+          <div style="font-size:var(--text-xs);color:var(--ir-text-muted);margin-bottom:var(--space-1)">Member since</div>
+          <div id="member-since">—</div>
+        </div>
+        <div>
+          <div style="font-size:var(--text-xs);color:var(--ir-text-muted);margin-bottom:var(--space-1)">Verification</div>
+          <div id="member-verified">—</div>
+        </div>
+        <div>
+          <div style="font-size:var(--text-xs);color:var(--ir-text-muted);margin-bottom:var(--space-1)">Active months</div>
+          <div id="member-months">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-grid" style="margin-bottom:var(--space-8)">
+      <div class="stat-card">
+        <div class="stat-card__value" id="member-balance">—</div>
+        <div class="stat-card__label">Credits available</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__value" id="member-multiplier">—</div>
+        <div class="stat-card__label">Earning multiplier</div>
+      </div>
+    </div>
+
+    <div class="card card--surface" style="margin-bottom:var(--space-8)">
+      <h3 style="margin-bottom:var(--space-3)">Invite a colleague</h3>
+      <p style="color:var(--ir-text-muted);font-size:var(--text-sm);margin-bottom:var(--space-4)">
+        Generate an invite code to share with someone who should join. When they sign up using your code, you both receive 3 bonus credits.
+      </p>
+      <button class="btn btn--secondary btn--sm" id="gen-invite">Generate invite code</button>
+      <div id="invite-result" style="display:none;margin-top:var(--space-4)">
+        <div style="font-size:var(--text-sm);color:var(--ir-text-muted);margin-bottom:var(--space-2)">Your invite code:</div>
+        <div style="font-family:var(--font-mono);font-size:var(--text-xl);font-weight:700;letter-spacing:0.1em;color:var(--ir-primary)" id="invite-code"></div>
+      </div>
+    </div>
+
+    <section>
+      <h2 style="font-size:var(--text-xl);margin-bottom:var(--space-5)">Full credit history</h2>
+      <div id="full-ledger" class="ledger-list card card--flat"></div>
+    </section>
+  </main>
+</div>
+
+<script type="module" src="/js/profile.js"></script>
+</body>
+</html>

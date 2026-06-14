@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit proof | Indie Relay</title>
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+
+<header id="nav" role="banner"></header>
+
+<div class="page-layout">
+  <nav class="sidebar" aria-label="Account navigation">
+    <a href="/dashboard.html" class="sidebar__link">Dashboard</a>
+    <a href="/marketplace.html" class="sidebar__link sidebar__link--active">Marketplace</a>
+    <a href="/new-request.html" class="sidebar__link">Post a request</a>
+    <a href="/profile.html" class="sidebar__link">Profile &amp; credits</a>
+  </nav>
+
+  <main class="main-content container--narrow" style="padding:0">
+    <div class="page-header">
+      <h1>Submit proof of promotion</h1>
+      <p>Provide a direct link to the live content. Screenshots are not accepted as standalone proof.</p>
+    </div>
+
+    <div id="request-summary"></div>
+
+    <div class="alert alert--warning" style="margin-bottom:var(--space-6)">
+      Make sure your content starts with <strong>"Ad: Indie Relay"</strong> before submitting. For livestreams, ensure the disclosure is also spoken aloud and shown on-screen.
+    </div>
+
+    <form id="proof-form" class="card" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="proof-url">Link to your promotion</label>
+        <input class="form-input" type="url" id="proof-url" required placeholder="https://…" autocomplete="url">
+        <span class="form-hint">Must be a direct, publicly accessible URL to the content: video, post, article, or VOD.</span>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="platform">Platform</label>
+        <select class="form-select" id="platform">
+          <option value="">Select platform (optional)</option>
+          <option value="TikTok">TikTok</option>
+          <option value="YouTube">YouTube</option>
+          <option value="YouTube Shorts">YouTube Shorts</option>
+          <option value="Twitch">Twitch</option>
+          <option value="Instagram Reels">Instagram Reels</option>
+          <option value="Twitter / X">Twitter / X</option>
+          <option value="Bluesky">Bluesky</option>
+          <option value="Discord">Discord</option>
+          <option value="Press article">Press article</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div id="form-error" class="form-error" style="margin-bottom:var(--space-4)"></div>
+
+      <div style="display:flex;gap:var(--space-3)">
+        <button type="submit" class="btn btn--primary" id="submit-btn">Submit proof</button>
+        <a href="/marketplace.html" class="btn btn--ghost">Cancel</a>
+      </div>
+    </form>
+  </main>
+</div>
+
+<script type="module" src="/js/submit-proof.js"></script>
+</body>
+</html>
