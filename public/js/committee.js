@@ -8,9 +8,10 @@ if (!requireCommittee()) throw new Error('not committee');
 renderNav();
 
 async function load() {
-  const [queue, pending] = await Promise.all([
+  const [queue, pending, members] = await Promise.all([
     api.get('/api/committee/queue'),
     api.get('/api/committee/pending-members'),
+    api.get('/api/committee/members'),
   ]);
 
   const disputes = queue.filter(i => i.priority === 'dispute');
@@ -19,6 +20,8 @@ async function load() {
   renderColumn('disputes-column', disputes, true);
   renderColumn('routine-column', routine, false);
   renderPendingMembers(pending);
+  renderMembers(members);
+  bindMemberFilters(members);
 }
 
 function renderPendingMembers(members) {
@@ -117,6 +120,137 @@ function renderColumn(id, items, isDispute) {
       }
     });
   });
+}
+
+function renderMembers(members) {
+  const el = document.getElementById('members-list');
+  if (!el) return;
+
+  if (members.length === 0) {
+    el.innerHTML = `<div class="empty-state"><p>No members found.</p></div>`;
+    return;
+  }
+
+  el.innerHTML = members.map(m => {
+    const statusBadge = m.isCommittee
+      ? `<span class="badge badge--accent">Committee</span>`
+      : m.status === 'banned'
+        ? `<span class="badge badge--spend">Banned</span>`
+        : m.status === 'suspended'
+          ? `<span class="badge badge--primary">Suspended</span>`
+          : `<span class="badge badge--earn">Active</span>`;
+
+    const actions = m.isCommittee ? '' : `
+      <div class="queue-item__actions" id="mactions-${m.id}">
+        ${m.status === 'active' ? `
+          <button class="btn btn--secondary btn--sm" data-maction="suspend" data-mid="${m.id}">Suspend</button>
+          <button class="btn btn--danger btn--sm" data-maction="ban" data-mid="${m.id}">Ban</button>
+        ` : m.status === 'suspended' ? `
+          <button class="btn btn--secondary btn--sm" data-maction="unsuspend" data-mid="${m.id}">Lift suspension</button>
+        ` : m.status === 'banned' ? `
+          <button class="btn btn--secondary btn--sm" data-maction="unban" data-mid="${m.id}">Unban</button>
+        ` : ''}
+      </div>
+      <div id="mconfirm-${m.id}" style="display:none;margin-top:var(--space-3)">
+        <div class="form-group" style="margin-bottom:var(--space-2)">
+          <input class="form-input" type="text" id="mreason-${m.id}" placeholder="Reason (optional)" maxlength="300">
+        </div>
+        <div style="display:flex;gap:var(--space-2)">
+          <button class="btn btn--danger btn--sm" id="mconfirm-btn-${m.id}">Confirm</button>
+          <button class="btn btn--ghost btn--sm" id="mcancel-btn-${m.id}">Cancel</button>
+        </div>
+        <div class="form-error" id="merr-${m.id}" style="margin-top:var(--space-2)"></div>
+      </div>
+    `;
+
+    return `
+      <div class="queue-item queue-item--routine" data-member-id="${m.id}" data-status="${m.status}">
+        <div style="display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;margin-bottom:var(--space-2)">
+          <span class="queue-item__game" style="margin-bottom:0">${esc(m.name)}</span>
+          ${statusBadge}
+          ${m.verified ? '' : `<span class="badge badge--neutral">Unverified</span>`}
+        </div>
+        <div class="queue-item__meta">${esc(m.memberType)} · ${esc(m.email)} · joined ${daysAgo(m.createdAt)}</div>
+        ${actions}
+      </div>
+    `;
+  }).join('');
+
+  let pendingAction = null;
+
+  el.querySelectorAll('[data-maction]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const action = btn.dataset.maction;
+      const id = btn.dataset.mid;
+
+      // Unsuspend / unban don't need a reason — just a confirm step
+      pendingAction = { action, id };
+      document.getElementById(`mconfirm-${id}`).style.display = 'block';
+      document.getElementById(`mreason-${id}`).placeholder =
+        action === 'suspend' ? 'Reason for suspension (optional)' :
+        action === 'ban'     ? 'Reason for ban (optional)' :
+        'Reason (optional)';
+      document.getElementById(`mreason-${id}`).focus();
+    });
+  });
+
+  el.querySelectorAll('[id^="mcancel-btn-"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.id.replace('mcancel-btn-', '');
+      document.getElementById(`mconfirm-${id}`).style.display = 'none';
+      document.getElementById(`merr-${id}`).textContent = '';
+      pendingAction = null;
+    });
+  });
+
+  el.querySelectorAll('[id^="mconfirm-btn-"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.id.replace('mconfirm-btn-', '');
+      const action = pendingAction?.action;
+      const reason = document.getElementById(`mreason-${id}`)?.value.trim() || undefined;
+      const errEl = document.getElementById(`merr-${id}`);
+      errEl.textContent = '';
+      btn.disabled = true;
+
+      try {
+        await api.post(`/api/committee/members/${id}/${action}`, { reason });
+        // Refresh just the member row's status
+        const row = el.querySelector(`[data-member-id="${id}"]`);
+        const newStatus = action === 'ban' ? 'banned' : action === 'suspend' ? 'suspended' : 'active';
+        row.dataset.status = newStatus;
+        // Reload list so badges and buttons reflect new status
+        const updated = await api.get('/api/committee/members');
+        bindMemberFilters(updated);
+        applyMemberFilters();
+      } catch (ex) {
+        errEl.textContent = ex.message ?? 'Something went wrong.';
+        btn.disabled = false;
+      }
+    });
+  });
+}
+
+let _allMembers = [];
+
+function applyMemberFilters() {
+  const search = document.getElementById('member-search')?.value.toLowerCase() ?? '';
+  const status = document.getElementById('member-status-filter')?.value ?? '';
+  const filtered = _allMembers.filter(m => {
+    const matchSearch = !search || m.name.toLowerCase().includes(search) || m.email.toLowerCase().includes(search);
+    const matchStatus = !status || m.status === status;
+    return matchSearch && matchStatus;
+  });
+  renderMembers(filtered);
+}
+
+function bindMemberFilters(allMembers) {
+  _allMembers = allMembers;
+  // Listeners are attached once; subsequent calls just update the data store
+  if (!document.getElementById('member-search')?._filterBound) {
+    document.getElementById('member-search').addEventListener('input', applyMemberFilters);
+    document.getElementById('member-status-filter').addEventListener('change', applyMemberFilters);
+    document.getElementById('member-search')._filterBound = true;
+  }
 }
 
 function esc(str) {
