@@ -103,6 +103,17 @@ export const memberFlags = sqliteTable('member_flags', {
   index('member_flags_member_idx').on(t.memberId),
 ]);
 
+export const oauthVerifications = sqliteTable('oauth_verifications', {
+  id:               text('id').primaryKey(),
+  platform:         text('platform', { enum: ['twitch','youtube','tiktok'] }).notNull(),
+  platformUserId:   text('platform_user_id').notNull(),
+  platformUsername: text('platform_username').notNull(),
+  platformUrl:      text('platform_url').notNull(),
+  expiresAt:        integer('expires_at', { mode: 'timestamp_ms' }).notNull(),
+  usedAt:           integer('used_at', { mode: 'timestamp_ms' }),
+  createdAt:        integer('created_at', { mode: 'timestamp_ms' }).$defaultFn(() => new Date()).notNull(),
+});
+
 export const passwordResetTokens = sqliteTable('password_reset_tokens', {
   id:        integer('id').primaryKey({ autoIncrement: true }),
   memberId:  integer('member_id').references(() => members.id).notNull(),

@@ -47,10 +47,45 @@
       </select>
     </div>
 
-    <div class="form-group" id="verification-section" style="display:none">
-      <label class="form-label" for="verification-url">Verification link</label>
-      <input class="form-input" type="url" id="verification-url" placeholder="https://…" autocomplete="url">
-      <span class="form-hint" id="verification-hint"></span>
+    <div id="verification-section" style="display:none">
+      <!-- OAuth verification (creator / streamer) -->
+      <div id="oauth-section" style="display:none;margin-bottom:var(--space-5)">
+        <div class="form-label" style="margin-bottom:var(--space-3)">Verify your account</div>
+        <div id="oauth-verified-banner" style="display:none" class="alert alert--success" style="margin-bottom:var(--space-3)">
+          <span id="oauth-verified-text"></span>
+          <button type="button" id="oauth-disconnect" class="btn btn--ghost btn--sm" style="margin-left:var(--space-3)">Disconnect</button>
+        </div>
+        <div id="oauth-buttons" style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+          <button type="button" class="btn btn--secondary" data-provider="twitch" id="btn-twitch" style="display:none">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+            Connect Twitch
+          </button>
+          <button type="button" class="btn btn--secondary" data-provider="youtube" id="btn-youtube" style="display:none">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            Connect YouTube
+          </button>
+          <button type="button" class="btn btn--secondary" data-provider="tiktok" id="btn-tiktok" style="display:none">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.35a8.16 8.16 0 0 0 4.77 1.52V7.43a4.85 4.85 0 0 1-1-.74z"/></svg>
+            Connect TikTok
+          </button>
+        </div>
+        <div style="margin-top:var(--space-4)">
+          <details>
+            <summary style="font-size:var(--text-sm);color:var(--ir-text-muted);cursor:pointer">Can't connect? Paste your profile URL instead</summary>
+            <div class="form-group" style="margin-top:var(--space-3);margin-bottom:0">
+              <input class="form-input" type="url" id="verification-url" placeholder="https://twitch.tv/yourhandle" autocomplete="url">
+              <span class="form-hint">Link to your public channel or profile.</span>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- URL verification (dev / press) -->
+      <div id="url-section" class="form-group" style="display:none;margin-bottom:0">
+        <label class="form-label" for="verification-url-plain">Verification link</label>
+        <input class="form-input" type="url" id="verification-url-plain" placeholder="https://…" autocomplete="url">
+        <span class="form-hint" id="verification-hint"></span>
+      </div>
     </div>
 
     <div class="form-group">

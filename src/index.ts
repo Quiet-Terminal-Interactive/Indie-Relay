@@ -12,6 +12,7 @@ import { marketplaceRoutes } from './routes/marketplace.js';
 import { claimRoutes } from './routes/claims.js';
 import { creditRoutes } from './routes/credits.js';
 import { committeeRoutes } from './routes/committee.js';
+import { oauthRoutes } from './routes/oauth.js';
 import { startInactivityJob } from './lib/inactivity.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -30,6 +31,7 @@ await app.register(marketplaceRoutes);
 await app.register(claimRoutes);
 await app.register(creditRoutes);
 await app.register(committeeRoutes);
+await app.register(oauthRoutes);
 
 app.get('/api/promo-types', async (_req, reply) => {
   return reply.send([

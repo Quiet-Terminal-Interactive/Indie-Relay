@@ -7,6 +7,7 @@ import { eq, and, gt, isNull } from 'drizzle-orm';
 import { signToken } from '../middleware/auth.js';
 import { awardCredits, STARTER_GRANT, INVITE_BONUS } from '../lib/credits.js';
 import { sendEmail } from '../lib/email.js';
+import { validateOauthVerification } from './oauth.js';
 
 export async function authRoutes(app: FastifyInstance): Promise<void> {
   app.post('/api/auth/signup', async (req, reply) => {
@@ -15,13 +16,14 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
       return reply.code(400).send({ error: 'Invalid request body' });
     }
 
-    const { email, password, name, memberType, verificationUrl, inviteCode } = body as {
+    const { email, password, name, memberType, verificationUrl, inviteCode, oauthVerificationId } = body as {
       email?: string;
       password?: string;
       name?: string;
       memberType?: string;
       verificationUrl?: string;
       inviteCode?: string;
+      oauthVerificationId?: string;
     };
 
     const VALID_TYPES = ['dev', 'creator', 'streamer', 'press'];
@@ -49,6 +51,13 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
     const cleanPassword   = password!;
     const cleanMemberType = memberType as 'dev' | 'creator' | 'streamer' | 'press';
 
+    let resolvedVerificationUrl = verificationUrl?.trim() || undefined;
+    if (oauthVerificationId && (cleanMemberType === 'creator' || cleanMemberType === 'streamer')) {
+      const verified = await validateOauthVerification(oauthVerificationId);
+      if (!verified) return reply.code(400).send({ error: 'OAuth verification expired or already used. Please reconnect your account.' });
+      resolvedVerificationUrl = verified.platformUrl;
+    }
+
     const existing = await db
       .select({ id: members.id })
       .from(members)
@@ -68,7 +77,7 @@ export async function authRoutes(app: FastifyInstance): Promise<void> {
         passwordHash,
         name: cleanName,
         memberType: cleanMemberType,
-        verificationUrl,
+        verificationUrl: resolvedVerificationUrl,
         creditBalance: 0,
       })
       .returning({ id: members.id, isCommittee: members.isCommittee });
