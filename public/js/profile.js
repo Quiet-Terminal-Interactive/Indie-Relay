@@ -45,6 +45,41 @@ async function load() {
     `).join('');
   }
 
+  const nameDisplay  = document.getElementById('member-name');
+  const editForm     = document.getElementById('edit-name-form');
+  const nameInput    = document.getElementById('name-input');
+  const nameError    = document.getElementById('name-error');
+
+  document.getElementById('edit-name-btn').addEventListener('click', () => {
+    nameInput.value = nameDisplay.textContent.trim();
+    editForm.style.display = 'block';
+    nameInput.focus();
+  });
+
+  document.getElementById('cancel-name-btn').addEventListener('click', () => {
+    editForm.style.display = 'none';
+    nameError.textContent = '';
+  });
+
+  document.getElementById('save-name-btn').addEventListener('click', async () => {
+    nameError.textContent = '';
+    const newName = nameInput.value.trim();
+    if (!newName)           { nameError.textContent = 'Name cannot be empty.'; return; }
+    if (newName.length > 100) { nameError.textContent = 'Name must be 100 characters or fewer.'; return; }
+
+    const saveBtn = document.getElementById('save-name-btn');
+    saveBtn.disabled = true;
+    try {
+      await api.patch('/api/members/me', { name: newName });
+      nameDisplay.textContent = newName;
+      editForm.style.display = 'none';
+    } catch (ex) {
+      nameError.textContent = ex.message ?? 'Failed to save. Please try again.';
+    } finally {
+      saveBtn.disabled = false;
+    }
+  });
+
   document.getElementById('gen-invite').addEventListener('click', async () => {
     const code = await api.post('/api/members/me/invite', {});
     document.getElementById('invite-code').textContent = code.code;
