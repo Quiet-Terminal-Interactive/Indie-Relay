@@ -251,6 +251,7 @@
   font-size: var(--text-sm);
   font-weight: 700;
   font-family: var(--font-mono);
+  white-space: nowrap;
 }
 
 .credit-chip--earn { background: var(--ir-credit-earn-dim); color: var(--ir-credit-earn); }
