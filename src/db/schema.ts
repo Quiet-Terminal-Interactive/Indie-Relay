@@ -103,6 +103,17 @@ export const memberFlags = sqliteTable('member_flags', {
   index('member_flags_member_idx').on(t.memberId),
 ]);
 
+export const passwordResetTokens = sqliteTable('password_reset_tokens', {
+  id:        integer('id').primaryKey({ autoIncrement: true }),
+  memberId:  integer('member_id').references(() => members.id).notNull(),
+  token:     text('token').notNull().unique(),
+  expiresAt: integer('expires_at', { mode: 'timestamp_ms' }).notNull(),
+  usedAt:    integer('used_at', { mode: 'timestamp_ms' }),
+  createdAt: integer('created_at', { mode: 'timestamp_ms' }).$defaultFn(() => new Date()).notNull(),
+}, (t) => [
+  index('prt_member_idx').on(t.memberId),
+]);
+
 export const committeeAuditLog = sqliteTable('committee_audit_log', {
   id:             integer('id').primaryKey({ autoIncrement: true }),
   committeeId:    integer('committee_id').references(() => members.id).notNull(),
